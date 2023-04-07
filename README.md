@@ -16,28 +16,24 @@ they progress. The project uses Redis as a database to store the game state and 
 
 <p>To get started, clone the project from GitHub:</p>
 
-<pre><div class="bg-black rounded-md mb-4"><div class="flex items-center relative text-gray-200 bg-gray-800 px-4 py-2 text-xs font-sans justify-between rounded-t-md"><span>shell</span><button class="flex ml-auto gap-2"><svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>Copy code</button></div><div class="p-4 overflow-y-auto"><code class="!whitespace-pre hljs language-shell"><span class="hljs-meta prompt_">$ </span><span class="bash">git <span class="hljs-built_in">clone</span> https://github.com/&lt;your-username&gt;/text-adventure-game.git</span>
-<span class="hljs-meta prompt_">$ </span><span class="bash"><span class="hljs-built_in">cd</span> text-adventure-game</span>
-</code></div></div></pre>
+<pre><code>git clone https://github.com/nguyenkduywork/portfolio-textbasedadventure.git </code>
+<code>cd [this project]</code></pre>
 
 <p>Next, install the required dependencies:</p>
 
-<pre><div class="bg-black rounded-md mb-4"><div class="flex items-center relative text-gray-200 bg-gray-800 px-4 py-2 text-xs font-sans justify-between rounded-t-md"><span>ruby</span><button class="flex ml-auto gap-2"><svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>Copy code</button></div><div class="p-4 overflow-y-auto"><code class="!whitespace-pre hljs language-ruby"><span class="hljs-variable">$ </span>pip install -r requirements.txt
-</code></div></div></pre>
+<pre><code>pip install -r requirements.txt</code></pre>
 
 <h3>Running the Project</h3>
 
-<p>To run the project, you will need to start the Redis server first. Open a new terminal window and run the following command:</p>
+<p>To run the project, you will need to start the Redis server first. Open a new terminal window (if you are using Windows, use WSL) and run the following command:</p>
 
-<pre><div class="bg-black rounded-md mb-4"><div class="flex items-center relative text-gray-200 bg-gray-800 px-4 py-2 text-xs font-sans justify-between rounded-t-md"><span>ruby</span><button class="flex ml-auto gap-2"><svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>Copy code</button></div><div class="p-4 overflow-y-auto"><code class="!whitespace-pre hljs language-ruby"><span class="hljs-variable">$ </span>redis-server
-</code></div></div></pre>
+<pre><code>redis-server</code></pre>
 
 <p>This will start the Redis server on the default port (6379).</p>
 
 <p>Next, open another terminal window and navigate to the project directory. Run the following command to start the Flask server:</p>
 
-<pre><div class="bg-black rounded-md mb-4"><div class="flex items-center relative text-gray-200 bg-gray-800 px-4 py-2 text-xs font-sans justify-between rounded-t-md"><span>ruby</span><button class="flex ml-auto gap-2"><svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>Copy code</button></div><div class="p-4 overflow-y-auto"><code class="!whitespace-pre hljs language-ruby"><span class="hljs-variable">$ </span>python app.py
-</code></div></div></pre>
+<code>python app.py</code>
 
 <p>This will start the Flask server on <code>http://localhost:5000/</code>. Open your web browser and navigate to this URL to play the game.</p>
 
