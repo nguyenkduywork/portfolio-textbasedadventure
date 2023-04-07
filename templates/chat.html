@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat Page</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="my-3">Text Adventure Game</h1>
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Player Information</h5>
+                <p class="card-text">Location: {{ player.location }}</p>
+                <p class="card-text">Items: {{ player.items }}</p>
+            </div>
+        </div>
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Conversation History</h5>
+                {% for username, message in messages %}
+                    <p class="card-text">{{ username }}: {{ message }}</p>
+                {% endfor %}
+            </div>
+        </div>
+        <form method="POST" action="/command">
+            <div class="form-group">
+                <label for="command">Enter a command:</label>
+                <input type="text" class="form-control" id="command" name="command" placeholder="Enter a command" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</body>
+</html>
