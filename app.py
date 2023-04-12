@@ -1,13 +1,16 @@
+import os
+
 from flask import Flask, render_template, request, redirect, session
+from game.game_logic import handle_command, redis_client
 from game.player import Player
-import redis
+
+from dotenv import load_dotenv
+load_dotenv()
+
+flask_secret_key = os.getenv('FLASK_SECRET')
 
 app = Flask(__name__)
-app.secret_key = 'mysecretkey'
-
-# redis_client = redis.StrictRedis(host='127.0.0.1', port=6379, db=0)
-redis_client = redis.StrictRedis(host='127.0.0.1', port=32768, db=0, password='redispw')
-
+app.secret_key = flask_secret_key
 
 @app.route('/', methods=['GET', 'POST'])
 def login():
@@ -21,7 +24,6 @@ def login():
             return render_template('login.html', error='Invalid username or password')
     else:
         return render_template('login.html')
-
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -39,11 +41,10 @@ def register():
     else:
         return render_template('register.html')
 
-@app.route('/logout',  methods=['GET', 'POST'])
+@app.route('/logout', methods=['GET', 'POST'])
 def logout():
     session.pop('username', None)
     return redirect('/')
-
 
 @app.route('/chat')
 def chat():
@@ -59,50 +60,13 @@ def chat():
     else:
         return redirect('/')
 
-
 @app.route('/command', methods=['POST'])
-def handle_command():
-    messages = []
+def handle_command_view():
     command = request.form['command'].strip().lower()
-    username = session['username']
-    player = Player(username, [0, 0])
-    player.load_data()
-
-    if command == 'move north':
-        player.location[1] += 1
-        player.save_data()
-        message = 'You have moved north.'
-    elif command == 'move south':
-        player.location[1] -= 1
-        player.save_data()
-        message = 'You have moved south.'
-    elif command == 'move east':
-        player.location[0] += 1
-        player.save_data()
-        message = 'You have moved east.'
-    elif command == 'move west':
-        player.location[0] -= 1
-        player.save_data()
-        message = 'You have moved west.'
-    else:
-        message = 'Invalid command.'
-
-    # Add the new message to the list
-    messages.append((username, message))
-
-    # Only keep the last 15 messages in the list
-    if len(messages) > 15:
-        messages = messages[-15:]
+    player, messages = handle_command(command, session)
 
     return render_template('chat.html', player=player, messages=messages)
 
 
 if __name__ == '__main__':
-    # Debugging code to print all usernames and passwords in Redis
-    print('---DEBUG INFO: ALL USERNAMES AND PASSWORDS IN REDIS---')
-    for key in redis_client.keys('*'):
-        username = key.decode('utf-8')
-        password = redis_client.hget(username, 'password').decode('utf-8')
-        print(f'Username: {username}, Password: {password}')
-
     app.run(debug=True)
