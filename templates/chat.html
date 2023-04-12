@@ -4,6 +4,23 @@
     <meta charset="UTF-8">
     <title>Chat Page</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        .container {
+            margin-top: 30px;
+        }
+        .card {
+            margin-bottom: 20px;
+        }
+        .card-title {
+            font-size: 20px;
+        }
+        .card-text {
+            font-size: 18px;
+        }
+        #logout-btn {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -29,6 +46,9 @@
                 <input type="text" class="form-control" id="command" name="command" placeholder="Enter a command" required>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        <form method="POST" action="/logout">
+            <button type="submit" class="btn btn-secondary" id="logout-btn">Log out</button>
         </form>
     </div>
 </body>
