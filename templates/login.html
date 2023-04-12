@@ -7,6 +7,7 @@
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 	<!-- Custom CSS -->
+    <link rel="stylesheet" href="css/stylesheet.css">
 	<style>
 		body {
 			background-color: #f2f2f2;
@@ -24,10 +25,33 @@
 		.btn:hover {
 			background-color: #0069d9;
 		}
+        .logo {
+			font-family: "Calibri Light", sans-serif;
+			font-size: 60px;
+			font-weight: bold;
+			text-align: center;
+			animation: moveUpDown 1s ease-in-out infinite alternate;
+		}
+        .lower-logo {
+            font-family: "Calibri Light", sans-serif;
+            font-size: 20px;
+            text-align: center;
+            animation: moveUpDown 1s ease-in-out infinite alternate;
+        }
+		@keyframes moveUpDown {
+			from {
+				transform: translateY(0);
+			}
+			to {
+				transform: translateY(-8px);
+			}
+		}
 	</style>
 </head>
 <body>
 	<div class="container">
+        <div class="logo">Text-based adventure game</div>
+        <div class="lower-logo">by Kim Duy NGUYEN</div>
 		<h1 class="text-center">Login Page</h1>
 		{% if error %}
 			<div class="alert alert-danger">{{ error }}</div>

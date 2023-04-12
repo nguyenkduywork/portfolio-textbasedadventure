@@ -20,6 +20,10 @@
         #logout-btn {
             margin-top: 20px;
         }
+        .message-container {
+            height: 200px;
+            overflow-y: scroll;
+        }
     </style>
 </head>
 <body>
@@ -33,11 +37,13 @@
             </div>
         </div>
         <div class="card mb-3">
-            <div class="card-body">
+            <div class="card-body message-container">
                 <h5 class="card-title">Conversation History</h5>
-                {% for username, message in messages %}
-                    <p class="card-text">{{ username }}: {{ message }}</p>
-                {% endfor %}
+                <div class="message-box">
+                    {% for username, message in messages %}
+                        <p>{{ username }}: {{ message }}</p>
+                    {% endfor %}
+                </div>
             </div>
         </div>
         <form method="POST" action="/command">
