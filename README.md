@@ -10,7 +10,7 @@ they progress. The project uses Redis as a database to store the game state and 
 
 <p>Before you can run the project, you will need to have the following installed on your machine:</p>
 
-<ul><li>Python 3</li><li>Flask</li><li>Redis</li></ul>
+<ul><li>Python 3</li><li>Flask</li><li>Docker</li></ul>
 
 <h3>Installation</h3>
 
@@ -23,19 +23,43 @@ they progress. The project uses Redis as a database to store the game state and 
 
 <pre><code>pip install -r requirements.txt</code></pre>
 
-<h3>Running the Project</h3>
+<h3>Running the Project - Docker version</h3>
 
-<p>To run the project, you will need to start the Redis server first. Open a new terminal window (if you are using Windows, use WSL) and run the following command:</p>
+<p> First, you will need to have Docker Desktop up and running.
+Afterwards, open a terminal, type these commands:</p>
 
-<pre><code>redis-server</code></pre>
+<ol>
+    <li>
+        <code>
+            docker run -d --name redis-stack -p 6379:6379 -p 8001:8001 redis/redis-stack:latest
+        </code>
+    </li>
+    <li>
+        <code>
+            docker exec -it redis-stack redis-cli
+        </code>
+    </li>
+</ol>
 
-<p>This will start the Redis server on the default port (6379).</p>
+<p> You should have a port opened up for you, type "ping"
+, if it sends back "PONG", it means the installation is working.</p>
 
-<p>Next, open another terminal window and navigate to the project directory. Run the following command to start the Flask server:</p>
+<p> <b> The 6379 is the REDIS_DOCKER_PORT that you need to fill the value in the .env file</b></p>
 
-<code>python app.py</code>
+<p> Example: REDIS_DOCKER_PORT = 6379</p>
 
-<p>This will start the Flask server on <code>http://localhost:5000/</code>. Open your web browser and navigate to this URL to play the game.</p>
+<p> <b>Next: define a password for the flask app in the .env file </b></p>
+
+<p> Example: FLASK_SECRET = "mysecretkey"</p>
+
+<p><b> Lastly: define the host_ip in the .env file</b></p>
+
+<p> Example: HOST_IP = "127.0.0.1"</p>
+
+<p><b> cd back to the project location if you are not already inside,
+type this in a terminal: </b></p>
+
+<code>flask run </code>
 
 <h3>How to Play</h3>
 
