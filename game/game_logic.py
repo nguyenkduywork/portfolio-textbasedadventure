@@ -7,16 +7,12 @@ from dotenv import load_dotenv
 load_dotenv()
 
 docker_port = int(os.getenv('REDIS_DOCKER_PORT'))
-docker_redis_pw = os.getenv('REDIS_DOCKER_PW')
+host_ip = os.getenv('HOST_IP')
 
 # redis_client = redis.StrictRedis(host='127.0.0.1', port=6379, db=0)
-redis_client = redis.StrictRedis(host='127.0.0.1', port=docker_port, db=0, password=docker_redis_pw)
-
-messages = []  # Initialize messages list outside handle_command
+redis_client = redis.StrictRedis(host=host_ip, port=docker_port, db=0)
 
 def handle_command(command, session):
-    global messages
-
     username = session['username']
     player = Player(username, [0, 0])
     player.load_data()
@@ -40,11 +36,17 @@ def handle_command(command, session):
     else:
         message = 'Invalid command.'
 
-    # Add the new message to the list
-    messages.append((username, message))
+    # Store the message in Redis with a key unique to the user
+    redis_key = f"{username}:messages"
+    redis_client.rpush(redis_key, f"{username}: {message}")
 
-    # Only keep the last 15 messages in the list
-    if len(messages) > 15:
-        messages = messages[-15:]
+    # Only keep the last 15 messages for the user
+    redis_client.ltrim(redis_key, -15, -1)
 
-    return player, messages
+    # Retrieve all messages associated with the current user
+    user_messages = redis_client.lrange(redis_key, 0, -1)
+    messages = [msg.decode('utf-8').split(": ") for msg in user_messages]
+
+    return messages
+
+

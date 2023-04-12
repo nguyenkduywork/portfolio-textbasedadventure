@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 docker_port = int(os.getenv('REDIS_DOCKER_PORT'))
-docker_redis_pw = os.getenv('REDIS_DOCKER_PW')
+host_ip = os.getenv('HOST_IP')
 
 class Player:
     def __init__(self, email, location):
@@ -13,7 +13,7 @@ class Player:
         self.location = location
 
         # self.redis_client = redis.StrictRedis(host='127.0.0.1', port=6379, db=0)
-        self.redis_client = redis.StrictRedis(host='127.0.0.1', port=docker_port, db=0, password=docker_redis_pw)
+        self.redis_client = redis.StrictRedis(host=host_ip, port=docker_port, db=0)
 
     def load_data(self):
         player_data = self.redis_client.hgetall(self.email)
