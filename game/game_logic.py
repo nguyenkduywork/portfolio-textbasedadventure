@@ -4,6 +4,7 @@ import os
 from game.player import Player
 
 from dotenv import load_dotenv
+
 load_dotenv()
 
 docker_port = int(os.getenv('REDIS_DOCKER_PORT'))
@@ -11,6 +12,7 @@ host_ip = os.getenv('HOST_IP')
 
 # redis_client = redis.StrictRedis(host='127.0.0.1', port=6379, db=0)
 redis_client = redis.StrictRedis(host=host_ip, port=docker_port, db=0)
+
 
 def handle_command(command, session):
     username = session['username']
@@ -45,8 +47,8 @@ def handle_command(command, session):
 
     # Retrieve all messages associated with the current user
     user_messages = redis_client.lrange(redis_key, 0, -1)
-    messages = [msg.decode('utf-8').split(": ") for msg in user_messages]
+    print(user_messages)
 
-    return messages
+    messages = [msg.decode('utf-8').split(": ", 1) for msg in user_messages]
 
-
+    return player, messages
