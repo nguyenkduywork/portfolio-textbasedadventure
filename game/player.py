@@ -5,7 +5,9 @@ class Player:
     def __init__(self, email, location):
         self.email = email
         self.location = location
-        self.redis_client = redis.StrictRedis(host='127.0.0.1', port=6379, db=0)
+
+        # self.redis_client = redis.StrictRedis(host='127.0.0.1', port=6379, db=0)
+        self.redis_client = redis.StrictRedis(host='127.0.0.1', port=32768, db=0, password='redispw')
 
     def load_data(self):
         player_data = self.redis_client.hgetall(self.email)
