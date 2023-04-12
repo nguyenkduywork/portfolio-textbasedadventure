@@ -5,7 +5,8 @@ import redis
 app = Flask(__name__)
 app.secret_key = 'mysecretkey'
 
-redis_client = redis.StrictRedis(host='127.0.0.1', port=6379, db=0)
+# redis_client = redis.StrictRedis(host='127.0.0.1', port=6379, db=0)
+redis_client = redis.StrictRedis(host='127.0.0.1', port=32768, db=0, password='redispw')
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -37,6 +38,11 @@ def register():
             return redirect('/chat')
     else:
         return render_template('register.html')
+
+@app.route('/logout',  methods=['GET', 'POST'])
+def logout():
+    session.pop('username', None)
+    return redirect('/')
 
 
 @app.route('/chat')
