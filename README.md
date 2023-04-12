@@ -41,7 +41,20 @@ they progress. The project uses Redis as a database to store the game state and 
 
 <p>The game is a simple text-based adventure where you can navigate through different locations and pick up items as you progress. To play the game, enter a command into the input field and click "Submit". The available commands are:</p>
 
-<ul><li><code>move north</code></li><li><code>move south</code></li><li><code>move east</code></li><li><code>move west</code></li><li><code>pickup item</code></li></ul>
+<ul>
+    <li>
+        <code>move north</code>
+    </li>
+    <li>
+        <code>move south</code>
+    </li>
+    <li>
+        <code>move east</code>
+    </li>
+    <li>
+        <code>move west</code>
+    </li>
+</ul>
 
 <p>As you play the game, your progress will be stored in Redis. This means that you can close the browser window and come back to the game later, and your progress will still be saved.</p>
 
