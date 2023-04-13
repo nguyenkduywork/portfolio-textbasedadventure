@@ -39,6 +39,10 @@ jobs:
           python test.py
 
       - name: Stop Redis service
-        run: "docker stop $(docker ps -q --filter \"name=redis-stack\")"
+        run: |
+          CONTAINER_ID=$(docker ps --quiet --filter "name=redis-stack")
+          if [ -n "$CONTAINER_ID" ]; then
+            docker stop "$CONTAINER_ID"
+          fi
 
         if: always()
