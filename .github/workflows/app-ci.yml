@@ -1,13 +1,11 @@
-name: Python CI
+name: Automatic Test and Merge
 
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    branches: [ dev ]
 
 jobs:
-  build:
+  merge:
 
     runs-on: ubuntu-latest
 
@@ -27,3 +25,28 @@ jobs:
     - name: Run tests
       run: |
         python test.py
+
+    - name: Merge changes into main
+      if: success()
+      uses: actions/github-script@v4
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        script: |
+          const { data: pullRequests } = await github.pulls.list({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            base: 'main',
+            head: 'dev',
+            state: 'open'
+          });
+          if (pullRequests.length === 0) {
+            console.log('No open pull requests from dev to main.');
+            return;
+          }
+          const { number: prNumber } = pullRequests[0];
+          await github.pulls.merge({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            pull_number: prNumber,
+            merge_method: 'squash'
+          });
