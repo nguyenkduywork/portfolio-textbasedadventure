@@ -52,7 +52,6 @@ def handle_command(command, session):
 
     # Retrieve all messages associated with the current user
     user_messages = redis_client.lrange(redis_key, 0, -1)
-    print(user_messages)
 
     messages = [msg.decode('utf-8') for msg in user_messages]
 
