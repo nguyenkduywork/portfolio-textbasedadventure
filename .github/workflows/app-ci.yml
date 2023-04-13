@@ -47,13 +47,11 @@ jobs:
 
         if: always()
 
-      - name: Merge dev branch to main
+      - name: Push changes to main branch
         if: ${{ github.ref == 'refs/heads/dev' && success() }}
-        uses: peter-evans/create-pull-request@v3.11.0
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: 'Merge dev branch to main'
-          title: 'Merge dev branch to main'
-          body: 'This pull request merges the dev branch to main.'
-          branch: 'main'
-          base: 'dev'
+        run: |
+          git config --global user.email "nguyenkduywork@gmail.com"
+          git config --global user.name "nguyenkduywork"
+          git checkout main
+          git merge dev
+          git push origin main
