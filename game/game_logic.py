@@ -10,7 +10,6 @@ load_dotenv()
 docker_port = int(os.getenv('REDIS_DOCKER_PORT'))
 host_ip = os.getenv('HOST_IP')
 
-# redis_client = redis.StrictRedis(host='127.0.0.1', port=6379, db=0)
 redis_client = redis.StrictRedis(host=host_ip, port=docker_port, db=0)
 
 
@@ -22,33 +21,40 @@ def handle_command(command, session):
     if command == 'move north':
         player.location[1] += 1
         player.save_data()
-        message = 'You have moved north.'
+        message = f"{username}: {command}"
+        response = 'Server: You have moved north.'
     elif command == 'move south':
         player.location[1] -= 1
         player.save_data()
-        message = 'You have moved south.'
+        message = f"{username}: {command}"
+        response = 'Server: You have moved south.'
     elif command == 'move east':
         player.location[0] += 1
         player.save_data()
-        message = 'You have moved east.'
+        message = f"{username}: {command}"
+        response = 'Server: You have moved east.'
     elif command == 'move west':
         player.location[0] -= 1
         player.save_data()
-        message = 'You have moved west.'
+        message = f"{username}: {command}"
+        response = 'Server: You have moved west.'
     else:
-        message = 'Invalid command.'
+        message = f"{username}: {command}"
+        response = 'Server: Invalid command.'
 
-    # Store the message in Redis with a key unique to the user
+    # Store the message and response in Redis with a key unique to the user
     redis_key = f"{username}:messages"
-    redis_client.rpush(redis_key, f"{username}: {message}")
+    redis_client.rpush(redis_key, message)
+    redis_client.rpush(redis_key, response)
 
-    # Only keep the last 15 messages for the user
-    redis_client.ltrim(redis_key, -15, -1)
+    # Only keep the last 10 messages for the user
+    redis_client.ltrim(redis_key, -20, -1)
 
     # Retrieve all messages associated with the current user
     user_messages = redis_client.lrange(redis_key, 0, -1)
     print(user_messages)
 
-    messages = [msg.decode('utf-8').split(": ", 1) for msg in user_messages]
+    messages = [msg.decode('utf-8') for msg in user_messages]
 
     return player, messages
+
