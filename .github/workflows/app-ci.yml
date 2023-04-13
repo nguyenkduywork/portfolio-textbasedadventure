@@ -47,14 +47,9 @@ jobs:
 
         if: always()
 
-      - name: Push changes to main branch
-        uses: stefanzweifel/git-auto-commit-action@v4
+      - name: Merge dev branch to main
+        if: ${{ github.ref == 'refs/heads/dev' && success() }}
+        uses: peaceiris/actions-merge-request@v3.5.0
         with:
-          commit_message: "Auto-commit changes after passing tests"
-          commit_options: "--no-verify"
-          branch: main
-          file_pattern: "**/*"
-          pull_branch: dev
-          commit_user_email: nguyenkduywork@gmail.com
-          commit_user_name: nguyenkduywork
-        if: success()
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          merge_method: squash
