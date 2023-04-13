@@ -38,7 +38,7 @@ jobs:
         run: |
           python test.py
 
-      - name: Stop redis service
-        run: |
-          docker stop $$(docker ps -q --filter "name=redis-stack")
+      - name: Stop Redis service
+        run: "docker stop $(docker ps -q --filter \"name=redis-stack\")"
+
         if: always()
