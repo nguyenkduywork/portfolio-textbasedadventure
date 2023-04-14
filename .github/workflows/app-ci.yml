@@ -45,13 +45,4 @@ jobs:
           if [ -n "$CONTAINER_ID" ]; then
             docker stop "$CONTAINER_ID"
           fi
-
-      - name: Push changes to main branch
-        if: ${{ github.ref == 'refs/heads/dev' && success() }}
-        run: |
-          git config --global user.email "nguyenkduywork@gmail.com"
-          git config --global user.name "nguyenkduywork"
-          git checkout local-main
-          git merge dev
-          git push origin main
       
