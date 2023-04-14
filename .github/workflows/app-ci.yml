@@ -37,6 +37,7 @@ jobs:
       - name: Run tests
         run: |
           python test.py
+        if: always() # always run this step, even if tests fail
 
       - name: Stop Redis service
         run: |
@@ -44,8 +45,6 @@ jobs:
           if [ -n "$CONTAINER_ID" ]; then
             docker stop "$CONTAINER_ID"
           fi
-
-        if: always()
 
       - name: Push changes to main branch
         if: ${{ github.ref == 'refs/heads/dev' && success() }}
