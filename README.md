@@ -19,15 +19,15 @@
 <ol>
     <li>
         <p>Ensure that you have Docker Desktop up and running. Open a terminal and enter the following command to set up Redis:</p>
-        <code>
+        <pre><code>
             docker run -d --name redis-stack -p 6379:6379 -p 8001:8001 redis/redis-stack:latest
-        </code>
+        </code></pre>
     </li>
     <li>
         <p>Next, access Redis by typing the following command into your terminal:</p>
-        <code>
+        <pre><code>
             docker exec -it redis-stack redis-cli
-        </code>
+        </code></pre>
     </li>
     <li>
         <p>You should now have access to Redis. Type "ping" and if you receive a response of "PONG", you're good to go!</p>
