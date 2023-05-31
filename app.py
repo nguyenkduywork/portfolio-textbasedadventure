@@ -1,3 +1,13 @@
+####################################################################################################
+#                                                                                                  #
+#               This code is created and maintained by: Kim Duy NGUYEN                             #
+#                                                                                                  #
+#               Please feel free to contact me if you have any questions or concerns.              #
+#                                                                                                  #
+#               LinkedIn: https://www.linkedin.com/in/duynguyenkim/                                #
+#                                                                                                  #
+####################################################################################################
+
 import os
 
 from flask import Flask, render_template, request, redirect, session
